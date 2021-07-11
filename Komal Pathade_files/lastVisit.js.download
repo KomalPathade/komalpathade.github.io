@@ -1,0 +1,76 @@
+/* This script and many more are available free online at
+The JavaScript Source :: http://javascript.internet.com */
+
+function time() {
+	now=new Date();
+	hour=now.getHours();
+
+ var morning = "Good morning!";           // Users can modify the messages at left to best suit their needs
+ var noon = "It's noon!";
+ var afternoon = "Good afternoon!";
+ var evening = "Good evening!";
+ var late_night = "Don\'t you think you need to get some sleep?";
+
+  if (hour >= 7 && hour < 12) { document.write(morning); return; }
+  if (hour == 12) { document.write(noon); return; }
+  if (hour > 12 && hour < 17) { document.write(afternoon); return; }
+  if (hour >= 17 && hour < 22) { document.write(evening); return; }
+  else { document.write(late_night); return; }
+}
+
+
+function date(){
+// Get today's current date.
+var now = new Date();
+
+// Array list of days.
+var days = new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+
+// Array list of months.
+var months = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
+
+// Calculate the number of the current day in the week.
+var date = ((now.getDate()<10) ? "0" : "")+ now.getDate();
+
+// Calculate four digit year.
+function fourdigits(number)	{
+	return (number < 1000) ? number + 1900 : number;
+								}
+
+// Join it all together
+today =  days[now.getDay()] + ", " +
+         months[now.getMonth()] + " " +
+         date + ", " +
+         (fourdigits(now.getYear())) ;
+
+// Print out the data.
+document.write(today);
+}
+
+function lastVisit() {
+  var lastvisit=new Object()
+  lastvisit.firstvisitmsg="This is your first visit to this page. Welcome!" //Change first visit message here
+  lastvisit.subsequentvisitmsg="Welcome back visitor! Your last visit was on <b>[displaydate]</b>" // Change subsequent visit message here
+
+  lastvisit.getCookie=function(Name) { // get cookie value
+    var re=new RegExp(Name+"=[^;]+", "i"); // construct RE to search for target name/value pair
+    if (document.cookie.match(re)) // if cookie found
+      return document.cookie.match(re)[0].split("=")[1] // return its value
+      return ""
+  }
+  lastvisit.setCookie=function(name, value, days) { // set cookie value
+    var expireDate = new Date()
+    //set "expstring" to either future or past date, to set or delete cookie, respectively
+    var expstring=expireDate.setDate(expireDate.getDate()+parseInt(days))
+    document.cookie = name+"="+value+"; expires="+expireDate.toGMTString()+"; path=/";
+  }
+
+  lastvisit.showmessage=function() {
+  if (lastvisit.getCookie("visitcounter")=="") { // if first visit
+    lastvisit.setCookie("visitcounter", 2, 730) // set "visitcounter" to 2 and for 730 days (2 years)
+    document.write(lastvisit.firstvisitmsg);
+  } else
+    document.write(lastvisit.subsequentvisitmsg.replace("\[displaydate\]", Date().toLocaleString()));
+  }
+  lastvisit.showmessage()
+}
